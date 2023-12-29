@@ -52,7 +52,10 @@ const VerifyEmail = () => {
         ezio.post('/seller/email/verify', {
             verification_token: otpCode,
         }).then((response) => {
-            console.log(response);
+            //TODO:: need to check success true/false
+            if (response.data.verified) {
+                navigate('/');
+            }
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 401) {

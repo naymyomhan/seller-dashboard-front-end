@@ -73,6 +73,7 @@ const Login = () => {
                         type='email'
                         icon={<Mail size={20} className='text-gray-500' />}
                         placeholder='Email'
+                        disable={requestLoading}
                     />
 
                     <FormInputField
@@ -81,6 +82,7 @@ const Login = () => {
                         type='password'
                         icon={<Key size={20} className='text-gray-500' />}
                         placeholder='Password'
+                        disable={requestLoading}
                     />
 
 

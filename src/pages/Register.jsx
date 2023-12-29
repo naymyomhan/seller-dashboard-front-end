@@ -58,15 +58,15 @@ const Register = () => {
                     console.log(response.data.message);
                 }).catch((error) => {
                     console.log(error.response.data.message);
-                }).then(() => {
+                }).finally(() => {
+                    setRequestLoading(false);
                     navigate("/verify-email");
                 })
         }).catch((error) => {
             const { success, message } = error.response.data;
-            setErrorMessage(message);
-        }).finally(() => {
             setRequestLoading(false);
-        });
+            setErrorMessage(message);
+        })
     }
 
     const handleGoogleRegister = () => {
@@ -86,6 +86,7 @@ const Register = () => {
                     type='text'
                     icon={<User size={20} className='text-gray-500' />}
                     placeholder='Username'
+                    disable={requestLoading}
                 />
                 <FormInputField
                     value={email}
@@ -93,6 +94,7 @@ const Register = () => {
                     type='email'
                     icon={<Mail size={20} className='text-gray-500' />}
                     placeholder='Email'
+                    disable={requestLoading}
                 />
 
                 <FormInputField
@@ -101,6 +103,7 @@ const Register = () => {
                     type='password'
                     icon={<Key size={20} className='text-gray-500' />}
                     placeholder='Password'
+                    disable={requestLoading}
                 />
 
                 <FormInputField
@@ -109,6 +112,7 @@ const Register = () => {
                     type='password'
                     icon={<Key size={20} className='text-gray-300' />}
                     placeholder='Confirm Password'
+                    disable={requestLoading}
                 />
 
                 {/* Register Button */}

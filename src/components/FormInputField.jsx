@@ -10,6 +10,7 @@ const FormInputField = ({
     type = 'text',
     icon,
     style = 'my-2',
+    disable = false,
 }) => {
 
     const [hidden, setHidden] = useState(true);
@@ -18,6 +19,7 @@ const FormInputField = ({
         <div className={`flex items-center w-full py-3 px-3 border border-gray-200 rounded-lg ${style}`}>
             {icon}
             <input
+                disabled={disable}
                 onChange={onChange}
                 value={value}
                 type={hidden ? type : 'text'}
