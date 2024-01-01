@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import ezio from '../ezio'
 
 import EasyOtpInput from '../components/EasyOtpInput';
-import Navbar from './layout/Navbar'
 import FullScreenLoading from '../components/FullScreenLoading';
+import Navbar from '../components/Navbar';
 
 const VerifyEmail = () => {
 
@@ -25,17 +25,19 @@ const VerifyEmail = () => {
             ezio.defaults.headers.common['Authorization'] = 'Bearer ' + token;
             ezio.get('/seller/profile', {})
                 .then((response) => {
-                    //TODO:: need to check success true/false
-                    if (response.data.verified) {
-                        navigate('/')
-                    } else {
-
+                    const { success, message, verified, data } = response.data;
+                    if (verified) {
+                        if (data.shop_name) {
+                            navigate('/');
+                        } else {
+                            navigate('complete-information');
+                        }
                     }
                 })
                 .catch((error) => {
                     if (error.response.status === 401) {
-                        console.log("Unauthorized");
-                        //TODO:: Delete Token and redirect to login
+                        localStorage.removeItem('token');
+                        navigate('/login');
                     }
                 }).finally(() => {
                     setPageLoading(false);
@@ -75,7 +77,7 @@ const VerifyEmail = () => {
                 className='w-screen h-screen bg-gray-100 flex flex-col items-center justify-center sm:px-0 px-10'>
                 <Navbar />
                 <div className='flex flex-col bg-white shadow-md py-5 px-5 sm:w-[400px] sm:min-w-[400px] min-w-full rounded-lg items-center'>
-                    <h2 className='text-lg font-bold mb-2'>Email Verification {otpCode}</h2>
+                    <h2 className='text-lg font-bold mb-2 text-gray-500'>Email Verification {otpCode}</h2>
                     <span className='text-gray-500 text-sm'>Please enter the 6-digit verification code</span>
                     <span className='text-gray-500 text-sm'> that was send to your email</span>
 
@@ -92,7 +94,7 @@ const VerifyEmail = () => {
                         disabled={requestLoading || otpCode.length < 6}
                         className={`w-full text-white py-2 rounded-md text-sm mt-5 
                     ${(!requestLoading && otpCode.length === 6) && "hover:bg-blue-600"}
-                    ${(!requestLoading && otpCode.length === 6) ? "bg-blue-500" : "bg-blue-300"}`}
+                    ${(!requestLoading && otpCode.length === 6) ? "bg-blue-500" : "bg-blue-300 hover:cursor-not-allowed"}`}
                         onClick={handleVerify}>
                         {requestLoading
                             ? "Loading..."

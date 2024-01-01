@@ -16,16 +16,15 @@ const FormInputField = ({
     const [hidden, setHidden] = useState(true);
 
     return (
-        <div className={`flex items-center w-full py-3 px-3 border border-gray-200 rounded-lg ${style}`}>
+        <div className={`flex items-center w-full px-3 border border-gray-200 bg-white rounded-lg ${style}`}>
             {icon}
             <input
                 disabled={disable}
                 onChange={onChange}
                 value={value}
                 type={hidden ? type : 'text'}
-                className='outline-none ml-3 flex-1 bg-transparent text-sm text-gray-700'
+                className='outline-none ml-3 flex-1 bg-transparent py-3 text-sm text-gray-700'
                 placeholder={placeholder}
-
             />
             {type === 'password' &&
                 <button onClick={() => { setHidden(!hidden) }}>

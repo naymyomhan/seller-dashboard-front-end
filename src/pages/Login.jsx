@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import ezio from '../ezio'
 import { google } from '../assets'
-import Navbar from './layout/Navbar';
 import FullScreenLoading from '../components/FullScreenLoading';
+import Navbar from '../components/Navbar';
 
 const Login = () => {
 
@@ -49,9 +49,8 @@ const Login = () => {
                 navigate("/verify-email");
             }
         }).catch((error) => {
+            setErrorMessage(error.response.data.message);
             setRequestLoading(false);
-            const { success, message } = error.response.data;
-            setErrorMessage(message);
         });
     }
 
@@ -65,7 +64,7 @@ const Login = () => {
                 className='w-screen h-screen bg-gray-100 flex flex-col items-center justify-center sm:px-0 px-10'>
                 <Navbar pageName='login' />
                 <div className='flex flex-col bg-white shadow-md py-5 px-5 sm:w-[400px] sm:min-w-[400px] min-w-full rounded-lg'>
-                    <h2 className='text-lg font-bold mb-2'>Login Seller Portal</h2>
+                    <h2 className='text-lg font-bold mb-2 text-gray-500'>Login Seller Portal</h2>
                     {errorMessage && <span className='text-sm text-red-500 text-wrap'>{errorMessage}</span>}
                     <FormInputField
                         value={email}
