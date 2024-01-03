@@ -47,7 +47,9 @@ const Master = () => {
                 <Sidebar />
                 <div className='flex flex-col flex-1 overflow-hidden h-screen'>
                     <Topbar />
-                    {page}
+                    <div className='flex-1 overflow-y-scroll'>
+                        {page}
+                    </div>
                 </div>
             </div>
     )

@@ -9,7 +9,7 @@ const FormInputField = ({
     placeholder,
     type = 'text',
     icon,
-    style = 'my-2',
+    style = '',
     disable = false,
 }) => {
 
